@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import VideoGallery from '../../components/VideoGallery.astro';
 import { PROFILE, PROJECTS } from '../../data/projects';
 import { withBase } from '../../utils/url';
 
@@ -80,6 +81,11 @@ const { sorbeBeauty } = PROJECTS;
           ))}
         </ul>
       </article>
+    </section>
+
+    <section class="case-section reveal" id="demo">
+      <h2 class="section-heading">Video demo en funcionamiento</h2>
+      <VideoGallery videos={sorbeBeauty.screenshots} projectName={sorbeBeauty.name} />
     </section>
   </article>
 </BaseLayout>

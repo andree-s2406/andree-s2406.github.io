@@ -225,7 +225,13 @@ export const PROJECTS: Record<'despax' | 'sorbeBeauty' | 'digiteca', ProjectData
     repoUrl: null,
     repoVisibilityNote: 'Código fuente privado (propiedad empresarial). Podés probar el sitio en vivo.',
     liveUrl: 'https://sorbe-beauty.onrender.com/public/servicios.html',
-    screenshots: [],
+    screenshots: [
+      {
+        src: '/videos/sorbe-beauty/demo_sorbe_beauty.mp4',
+        title: 'Recorrido completo — Sorbe Beauty',
+        caption: 'Catálogo de servicios, búsqueda, portal de clientas, reserva de turnos online y experiencia móvil/PWA.',
+      },
+    ],
     iconUrl: '/images/sorbe-beauty-logo.png',
   },
   digiteca: {
