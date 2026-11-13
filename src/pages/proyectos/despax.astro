@@ -16,267 +16,186 @@ const { despax } = PROJECTS;
     <nav class="breadcrumb" aria-label="Ruta de navegación">
       <a href={withBase('')}>← Volver al portafolio</a>
       <span>/</span>
-      <span>Proyectos</span>
-      <span>/</span>
-      <span class="current">{despax.name}</span>
+      <span>{despax.name}</span>
     </nav>
 
     <header class="case-header">
-      <div class="case-header-meta">
-        <span class="eyebrow">{despax.role}</span>
-        <span class="status-badge"><span class="status-dot"></span>{despax.status}</span>
-      </div>
+      <p class="meta-line">{despax.role} · {despax.status}</p>
       <h1>{despax.name}</h1>
       <p class="case-tagline">{despax.tagline}</p>
 
-      <div class="case-actions">
+      <nav class="case-actions" aria-label="Enlaces de Despax">
         {despax.liveUrl && (
           <a href={despax.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
             Abrir aplicación en producción ↗
           </a>
         )}
-        {despax.repoUrl && (
-          <a href={despax.repoUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-            Repositorio GitHub (Privado) ↗
-          </a>
-        )}
-      </div>
+      </nav>
       <p class="repo-note">{despax.repoVisibilityNote}</p>
     </header>
 
-    <!-- Problema y Solución -->
     <section class="case-section grid-2 reveal">
-      <div class="info-box surface">
-        <span class="eyebrow">01 / El problema</span>
+      <article class="info-box">
         <h2>Por qué hacía falta Despax</h2>
         <p>{despax.problem}</p>
-      </div>
-      <div class="info-box surface">
-        <span class="eyebrow">02 / La solución</span>
+      </article>
+      <article class="info-box">
         <h2>Cómo lo resuelve</h2>
         <p>{despax.solution}</p>
-      </div>
+      </article>
     </section>
 
-    <!-- Funcionalidades clave -->
     <section class="case-section reveal">
-      <div class="section-title">
-        <span class="eyebrow">03 / Capacidades</span>
-        <h2>Funcionalidades implementadas</h2>
-      </div>
-      <div class="highlights-grid">
-        {despax.highlights.map((item, idx) => (
-          <div class="highlight-item surface">
-            <span class="highlight-num">{String(idx + 1).padStart(2, '0')}</span>
-            <p>{item}</p>
-          </div>
+      <h2 class="section-heading">Funcionalidades implementadas</h2>
+      <ol class="highlights-grid">
+        {despax.highlights.map((item) => (
+          <li class="highlight-item">{item}</li>
         ))}
-      </div>
+      </ol>
     </section>
 
-    <!-- Explorador técnico interactivo -->
     <section class="case-section reveal">
-      <div class="section-title">
-        <span class="eyebrow">04 / Arquitectura modular</span>
-        <h2>Explorador técnico e impacto operativo</h2>
-      </div>
+      <h2 class="section-heading">Explorador técnico e impacto operativo</h2>
       <DespaxExplorer />
     </section>
 
-    <!-- Seguridad y Stack -->
     <section class="case-section grid-2 reveal">
-      <div class="info-box surface">
-        <span class="eyebrow">05 / Seguridad & Multi-Tenant</span>
-        <h2>Decisiones de ingeniería</h2>
+      <article class="info-box">
+        <h2>Decisiones de ingeniería y seguridad</h2>
         <ul class="arch-list">
           {despax.architecture.map((line) => (
             <li>{line}</li>
           ))}
         </ul>
-      </div>
-      <div class="info-box surface">
-        <span class="eyebrow">06 / Stack real</span>
+      </article>
+      <article class="info-box">
         <h2>Tecnologías utilizadas</h2>
         <ul class="chip-list">
           {despax.stack.map((tech) => (
             <li class="chip">{tech}</li>
           ))}
         </ul>
-      </div>
+      </article>
     </section>
 
-    <!-- Videos explicativos -->
     <section class="case-section reveal">
-      <div class="videos-box surface">
-        <div class="videos-head">
-          <div>
-            <span class="eyebrow">07 / Videos explicativos</span>
-            <h2>Recorrido guiado en la página oficial</h2>
-            <p class="videos-desc">
-              La landing oficial de Despax incluye 7 videos explicativos que muestran cada flujo operativo en funcionamiento real:
-            </p>
-          </div>
-          {despax.liveUrl && (
-            <a href={despax.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-              Ver videos en Despax ↗
-            </a>
-          )}
-        </div>
-        <ul class="videos-list">
-          {DESPAX_VIDEOS.map((video) => (
-            <li>{video}</li>
-          ))}
-        </ul>
-      </div>
+      <header class="videos-head">
+        <hgroup>
+          <h2>Videos explicativos en la página oficial</h2>
+          <p class="videos-desc">
+            La landing oficial de Despax incluye 7 videos explicativos que muestran cada flujo operativo en funcionamiento real:
+          </p>
+        </hgroup>
+        {despax.liveUrl && (
+          <a href={despax.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Ver videos en Despax ↗
+          </a>
+        )}
+      </header>
+      <ul class="videos-list">
+        {DESPAX_VIDEOS.map((video) => (
+          <li>{video}</li>
+        ))}
+      </ul>
     </section>
 
-    <!-- Galería real -->
     <section class="case-section reveal" id="galeria">
-      <div class="section-title">
-        <span class="eyebrow">08 / Capturas reales</span>
-        <h2>Interfaz en operación ({despax.screenshots.length} pantallas)</h2>
-      </div>
+      <h2 class="section-heading">Capturas reales de la última versión ({despax.screenshots.length} pantallas)</h2>
       <ScreenshotGallery screenshots={despax.screenshots} projectName={despax.name} />
     </section>
   </article>
 </BaseLayout>
 
 <style>
-  .case-study {
-    padding: 2.25rem 0 3rem;
-  }
+  .case-study { padding: 2.25rem 0 3rem; }
 
   .breadcrumb {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     gap: 0.5rem;
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--text-muted);
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
   }
 
-  .breadcrumb a {
-    color: var(--text-secondary);
-  }
-
-  .breadcrumb a:hover {
-    color: var(--accent);
-  }
-
-  .breadcrumb .current {
-    color: var(--text-primary);
-  }
+  .breadcrumb a { color: var(--text-secondary); }
+  .breadcrumb a:hover { color: var(--accent); }
 
   .case-header {
-    padding-bottom: 2.25rem;
+    padding-bottom: 2rem;
     border-bottom: 1px solid var(--border);
   }
 
-  .case-header-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.85rem;
-    margin-bottom: 0.85rem;
-  }
-
   .case-header h1 {
-    font-size: clamp(2.2rem, 5vw, 3.6rem);
-    letter-spacing: -0.03em;
+    margin-top: 0.45rem;
+    font-size: clamp(2.1rem, 4.8vw, 3.4rem);
   }
 
   .case-tagline {
-    margin-top: 0.85rem;
-    font-size: clamp(1.02rem, 1.8vw, 1.24rem);
+    margin-top: 0.75rem;
+    font-size: clamp(1rem, 1.7vw, 1.18rem);
     color: var(--text-secondary);
     max-width: 60ch;
   }
 
   .case-actions {
-    margin-top: 1.5rem;
+    margin-top: 1.35rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
 
   .repo-note {
-    margin-top: 0.75rem;
+    margin-top: 0.7rem;
     font-family: var(--font-mono);
     font-size: 0.76rem;
     color: var(--text-muted);
   }
 
   .case-section {
-    margin-top: 3rem;
+    margin-top: 2.75rem;
+    padding-top: 2.25rem;
+    border-top: 1px solid var(--border);
   }
 
-  .section-title {
+  .section-heading {
+    font-size: clamp(1.35rem, 2.5vw, 1.8rem);
     margin-bottom: 1.25rem;
-  }
-
-  .section-title h2 {
-    margin-top: 0.4rem;
-    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
   }
 
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
   @media (min-width: 768px) {
-    .grid-2 {
-      grid-template-columns: 1fr 1fr;
-    }
+    .grid-2 { grid-template-columns: 1fr 1fr; gap: 2.25rem; }
   }
 
   .info-box {
-    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .info-box h2 {
-    font-size: 1.3rem;
-  }
-
-  .info-box p {
-    color: var(--text-secondary);
-    font-size: 0.94rem;
-  }
+  .info-box h2 { font-size: 1.25rem; }
+  .info-box p { color: var(--text-secondary); font-size: 0.94rem; }
 
   .highlights-grid {
+    margin: 0;
+    padding-left: 1.25rem;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.9rem;
+    gap: 0.75rem 2rem;
   }
 
   @media (min-width: 720px) {
-    .highlights-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   .highlight-item {
-    padding: 1.15rem 1.25rem;
-    display: flex;
-    gap: 0.9rem;
-    align-items: flex-start;
-  }
-
-  .highlight-num {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--accent);
-    padding-top: 0.15rem;
-  }
-
-  .highlight-item p {
-    font-size: 0.92rem;
+    font-size: 0.93rem;
     color: var(--text-secondary);
   }
 
@@ -290,17 +209,11 @@ const { despax } = PROJECTS;
     font-size: 0.92rem;
   }
 
-  .videos-box {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
   .videos-head {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-bottom: 1.25rem;
   }
 
   @media (min-width: 768px) {
@@ -311,13 +224,10 @@ const { despax } = PROJECTS;
     }
   }
 
-  .videos-head h2 {
-    margin-top: 0.4rem;
-    font-size: clamp(1.3rem, 2.4vw, 1.65rem);
-  }
+  .videos-head h2 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); }
 
   .videos-desc {
-    margin-top: 0.5rem;
+    margin-top: 0.45rem;
     color: var(--text-secondary);
     font-size: 0.94rem;
     max-width: 62ch;
@@ -333,9 +243,7 @@ const { despax } = PROJECTS;
   }
 
   @media (min-width: 720px) {
-    .videos-list {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .videos-list { grid-template-columns: repeat(2, 1fr); }
   }
 
   .videos-list li {
@@ -344,7 +252,7 @@ const { despax } = PROJECTS;
     color: var(--text-secondary);
     padding: 0.7rem 0.9rem;
     border-radius: var(--radius-sm);
-    background: hsla(220, 14%, 5%, 0.45);
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
   }
 </style>

@@ -7,7 +7,6 @@ export interface ProjectScreenshot {
 export interface ProjectModule {
   id: string;
   label: string;
-  eyebrow: string;
   summary: string;
   businessValue: string;
   technicalDetail: string;
@@ -21,7 +20,6 @@ export interface ProjectData {
   role: string;
   status: string;
   featured: boolean;
-  available: boolean;
   summary: string;
   problem: string;
   solution: string;
@@ -39,24 +37,22 @@ export const PROFILE = {
   monogram: 'AR',
   name: 'Andrés Rodríguez',
   handle: '@andree-s2406',
-  role: 'Desarrollador Full-Stack & Automatización',
-  headline: 'Construyo software que ordena operaciones reales.',
+  role: 'Desarrollador Backend · Sistemas en Producción',
+  headline: 'Desarrollo backends y sistemas que resuelven operaciones reales.',
   subheadline:
-    'Diseño y programo aplicaciones web, extensiones e integraciones pensadas para el uso diario: desde logística e-commerce hasta bibliotecas digitales y reservas en tiempo real.',
+    'Me especializo en arquitectura backend, APIs, colas asíncronas, bases de datos y seguridad, completando el ciclo full-stack cuando el producto lo requiere.',
   about: [
-    'Me enfoco en resolver cuellos de botella concretos donde el software ahorra horas de trabajo manual y evita errores operativos.',
-    'Trabajo de punta a punta: arquitectura de backend, bases de datos multi-tenant, seguridad OAuth/webhooks, interfaces rápidas y despliegue en producción.',
+    'Mi foco principal está en el backend: diseñar modelos de datos consistentes, integrar APIs externas, asegurar flujos OAuth/webhooks y procesar tareas pesadas sin frenar al usuario.',
+    'También construyo las interfaces y extensiones necesarias para que esos sistemas se usen todos los días sin fricción.',
   ],
   githubUrl: 'https://github.com/andree-s2406',
   email: 'andresfeliperodriguezmora448@gmail.com',
-  location: 'Argentina',
 };
 
 export const DESPAX_MODULES: ProjectModule[] = [
   {
     id: 'pdf-engine',
     label: 'Motor de Etiquetas PDF',
-    eyebrow: '01 / Procesamiento de archivos',
     summary: 'Analiza, reordena y rotula lotes de etiquetas de envío en segundos.',
     businessValue:
       'En lugar de cruzar manualmente cada etiqueta de Correo Argentino, Andreani, OCA o e-Pick con su pedido, Despax agrupa las hojas por producto/variante e imprime el detalle exacto de empaque sobre cada rótulo.',
@@ -67,10 +63,9 @@ export const DESPAX_MODULES: ProjectModule[] = [
   {
     id: 'shared-stock',
     label: 'Stock Vinculado & Webhooks',
-    eyebrow: '02 / Sincronización asíncrona',
     summary: 'Mantiene sincronizado el inventario entre publicaciones que comparten insumos físicos.',
     businessValue:
-      'Si dos publicaciones distintas (por ejemplo, producto principal y repuesto/funda) comparten la misma materia prima, cada venta o cancelación ajusta automáticamente el stock de la contraparte sin sobreventas.',
+      'Si dos publicaciones distintas (producto principal y repuesto/funda) comparten materia prima, cada venta o cancelación ajusta automáticamente el stock de la contraparte sin sobreventas.',
     technicalDetail:
       'Worker en segundo plano con Redis + RQ, claves compuestas de idempotencia en CockroachDB para reintentos de webhooks, buffer de seguridad configurable y verificación HMAC-SHA256.',
     stack: ['Redis', 'RQ Worker', 'CockroachDB', 'Webhooks HMAC'],
@@ -78,7 +73,6 @@ export const DESPAX_MODULES: ProjectModule[] = [
   {
     id: 'chrome-ext',
     label: 'Extensión Chrome MV3',
-    eyebrow: '03 / Integración en navegador',
     summary: 'Rotula etiquetas directamente dentro de los portales de Tiendanube y correos.',
     businessValue:
       'Evita descargar y subir archivos entre ventanas: el operador genera y rotula sus etiquetas desde el propio panel de Tiendanube, Conexa, OCA, Andreani o Correo Argentino.',
@@ -89,7 +83,6 @@ export const DESPAX_MODULES: ProjectModule[] = [
   {
     id: 'security-multitenant',
     label: 'Seguridad & Multi-Tenant',
-    eyebrow: '04 / Arquitectura en producción',
     summary: 'Aislamiento estricto por cuenta, cifrado de credenciales y cumplimiento OAuth.',
     businessValue:
       'Cada tienda opera en su propio espacio aislado con reglas, promociones (como 2x1), códigos de barra de depósito y lotes históricos independientes.',
@@ -114,16 +107,15 @@ export const PROJECTS: Record<'despax' | 'sorbeBeauty' | 'digiteca', ProjectData
     slug: 'despax',
     name: 'Despax',
     tagline: 'Organizador, rotulador inteligente de etiquetas y sincronización de stock para e-commerce.',
-    role: 'Proyecto principal · Arquitectura Full-Stack & Extensión',
+    role: 'Proyecto principal · Backend, Arquitectura & Extensión',
     status: 'En producción',
     featured: true,
-    available: true,
     summary:
       'Plataforma multi-tenant que automatiza el despacho diario de tiendas online: procesa PDFs de etiquetas de envío, cruza órdenes de Tiendanube y Mercado Libre, imprime comandas de empaque y sincroniza stock vinculado en segundo plano.',
     problem:
       'Cuando un e-commerce despacha decenas o cientos de pedidos diarios, las etiquetas de los correos salen desordenadas y sin detalle de qué producto va en cada paquete. Armar cada envío manualmente genera demoras, errores de talle/color y quiebres de stock entre productos que comparten insumos.',
     solution:
-      'Despax centraliza el flujo: recibe el PDF de etiquetas, consulta las órdenes reales vía API, reordena las hojas en serie por producto y estampa la comanda de empaque en cada etiqueta. Además, suma una Extensión de Chrome, escáner de códigos de barra para depósito y un worker asíncrono para stock vinculado y promociones.',
+      'Despax centraliza el flujo: recibe el PDF de etiquetas, consulta las órdenes reales vía API, reordena las hojas en serie por producto y estampa la comanda de empaque en cada etiqueta. Suma una Extensión de Chrome, escáner de códigos de barra para depósito y un worker asíncrono para stock vinculado y promociones.',
     highlights: [
       'Compatible con Correo Argentino, Andreani, OCA y e-Pick (térmica 10x15 cm y A4).',
       'Integración oficial OAuth 2.0 con Tiendanube (App ID 40950) y Mercado Libre.',
@@ -131,6 +123,7 @@ export const PROJECTS: Record<'despax' | 'sorbeBeauty' | 'digiteca', ProjectData
       'Extensión de Chrome (Manifest V3) para operar directo sobre portales de logística.',
       'Motor de reglas, promociones 2x1, exportación a Excel y analítica con IA opcional (Gemini / Groq).',
       'Módulo de depósito con generación y lectura de códigos de barra.',
+      'Incluye 7 videos explicativos paso a paso dentro de la plataforma para onboarding de operadores.',
     ],
     stack: [
       'Python',
@@ -151,49 +144,44 @@ export const PROJECTS: Record<'despax' | 'sorbeBeauty' | 'digiteca', ProjectData
       'Cola de trabajos asíncrona con Redis + RQ para webhooks de órdenes y cancelaciones.',
       'Protección anti-DoS en PDFs (límite de 500 páginas) y sanitización contra path traversal.',
     ],
-    repoUrl: 'https://github.com/andree-s2406/lista',
-    repoVisibilityNote: 'Repositorio privado en producción (código fuente bajo solicitud).',
+    repoUrl: null,
+    repoVisibilityNote: 'Código fuente privado (propiedad empresarial). Podés explorar la app en producción y sus capturas reales.',
     liveUrl: 'https://lista-zdxo.onrender.com/landing',
     screenshots: [
       {
-        src: '/images/despax/02_main.png',
-        title: 'Analizador de Pedidos y Etiquetas',
-        caption: 'Pantalla operativa principal: carga de PDF, organización de hojas y panel de diagnóstico en vivo.',
+        src: '/images/despax/02_rotulado_diagnostico_y_visor_en_vivo.png',
+        title: 'Analizador de Pedidos y Control de Calidad',
+        caption: 'Carga de PDF, selección de formato de hoja, validación previa e inspección en vivo.',
       },
       {
-        src: '/images/despax/03_panel_etiquetas.png',
-        title: 'Panel de Etiquetas',
-        caption: 'Configuración de rotulado, formatos de impresión y opciones de asociación de órdenes.',
+        src: '/images/despax/05_promociones_reglas_y_asistente_ia.png',
+        title: 'Reglas, Promociones 2x1 y Catálogo',
+        caption: 'Administración de promociones activas, reglas de Tiendanube, preferencias de rotulado y SKUs.',
       },
       {
-        src: '/images/despax/04_panel_diagnostico.png',
-        title: 'Diagnóstico y Control de Calidad',
-        caption: 'Validación previa a la impresión con detección automática de páginas, órdenes y transportistas.',
+        src: '/images/despax/03_asociacion_manual_e_historial_de_lotes.png',
+        title: 'Asociación Manual e Historial de Lotes',
+        caption: 'Vinculación manual de etiquetas sin orden detectada y trazabilidad de tandas procesadas.',
       },
       {
-        src: '/images/despax/06_admin_productos.png',
-        title: 'Reglas y Promociones',
-        caption: 'Administración de promociones (como 2x1), reglas de etiquetas en Tiendanube y productos de Mercado Libre.',
+        src: '/images/despax/04_reportes_excel_y_control_de_pedidos.png',
+        title: 'Reportes Excel y Control de Pedidos',
+        caption: 'Generación de planillas operativas para armado y control en depósito.',
       },
       {
-        src: '/images/despax/07_historial_lotes.png',
-        title: 'Historial de Lotes',
-        caption: 'Trazabilidad de lotes procesados para auditoría y reimpresión rápida en depósito.',
+        src: '/images/despax/06_codigos_de_barra_escaner_y_stock_vinculado.png',
+        title: 'Códigos de Barra y Stock Vinculado',
+        caption: 'Generación de etiquetas internas, lectura por escáner y sincronización de inventario compartido.',
       },
       {
-        src: '/images/despax/08_perfil.png',
-        title: 'Perfil y Conexión de Tiendas',
-        caption: 'Gestión de cuenta, suscripción y vinculación OAuth con Tiendanube y Mercado Libre.',
+        src: '/images/despax/01_primeros_pasos_perfil_y_tiendas.png',
+        title: 'Primeros Pasos, Perfil y Tiendas',
+        caption: 'Configuración inicial de cuenta y vinculación OAuth con Tiendanube y Mercado Libre.',
       },
       {
-        src: '/images/despax/01_login.png',
-        title: 'Acceso Seguro',
-        caption: 'Inicio de sesión con protección de fuerza bruta y sesiones aisladas por cuenta.',
-      },
-      {
-        src: '/images/despax/05_user_menu.png',
-        title: 'Navegación de Cuenta',
-        caption: 'Acceso rápido a catálogo, códigos de barra, tutorial interactivo y configuración.',
+        src: '/images/despax/07_extension_chrome_despax.png',
+        title: 'Extensión de Chrome Despax',
+        caption: 'Integración directa dentro de los portales de Tiendanube y correos argentinos.',
       },
     ],
   },
@@ -201,10 +189,9 @@ export const PROJECTS: Record<'despax' | 'sorbeBeauty' | 'digiteca', ProjectData
     slug: 'sorbe-beauty',
     name: 'Sorbe Beauty',
     tagline: 'Plataforma web y PWA de reservas online y gestión en tiempo real para centro de estética.',
-    role: 'Desarrollo Full-Stack & PWA',
+    role: 'Backend PHP & Arquitectura Realtime',
     status: 'En producción',
     featured: false,
-    available: true,
     summary:
       'Sistema de turnos online pensado para que las clientas reserven tratamientos en minutos desde el celular y el equipo administre agenda, profesionales y recordatorios en tiempo real.',
     problem:
@@ -245,10 +232,9 @@ export const PROJECTS: Record<'despax' | 'sorbeBeauty' | 'digiteca', ProjectData
     slug: 'digiteca',
     name: 'Digiteca',
     tagline: 'Biblioteca digital institucional con visor seguro de PDFs, control por roles y sincronización en tiempo real.',
-    role: 'Desarrollo Full-Stack · Educación',
+    role: 'Backend Node.js & Arquitectura de Datos',
     status: 'En producción',
     featured: false,
-    available: true,
     summary:
       'Plataforma web de gestión y lectura bibliográfica digital desarrollada para la Escuela Técnica N° 29 D.E. 6 "Reconquista de Buenos Aires", orientada a estudiantes, docentes y directivos.',
     problem:

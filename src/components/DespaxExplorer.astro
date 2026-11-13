@@ -2,8 +2,8 @@
 import { DESPAX_MODULES } from '../data/projects';
 ---
 
-<div class="explorer surface" data-despax-explorer>
-  <div class="explorer-tabs" role="tablist" aria-label="Módulos técnicos de Despax">
+<section class="explorer" data-despax-explorer aria-label="Módulos técnicos de Despax">
+  <nav class="explorer-tabs" role="tablist">
     {DESPAX_MODULES.map((mod, idx) => (
       <button
         type="button"
@@ -14,47 +14,43 @@ import { DESPAX_MODULES } from '../data/projects';
         aria-controls={`panel-${mod.id}`}
         data-tab-target={mod.id}
       >
-        <span class="tab-eyebrow">{mod.eyebrow}</span>
-        <span class="tab-label">{mod.label}</span>
+        {mod.label}
       </button>
     ))}
-  </div>
+  </nav>
 
-  <div class="explorer-panels">
-    {DESPAX_MODULES.map((mod, idx) => (
-      <div
-        role="tabpanel"
-        id={`panel-${mod.id}`}
-        aria-labelledby={`tab-${mod.id}`}
-        class:list={['explorer-panel', { 'is-active': idx === 0 }]}
-        hidden={idx !== 0}
-        data-tab-panel={mod.id}
-      >
-        <p class="panel-summary">{mod.summary}</p>
+  {DESPAX_MODULES.map((mod, idx) => (
+    <article
+      role="tabpanel"
+      id={`panel-${mod.id}`}
+      aria-labelledby={`tab-${mod.id}`}
+      class:list={['explorer-panel', { 'is-active': idx === 0 }]}
+      hidden={idx !== 0}
+      data-tab-panel={mod.id}
+    >
+      <p class="panel-summary">{mod.summary}</p>
 
-        <div class="panel-columns">
-          <div class="panel-block">
-            <h4>Valor operativo</h4>
-            <p>{mod.businessValue}</p>
-          </div>
-          <div class="panel-block panel-block--tech">
-            <h4>Cómo está construido</h4>
-            <p>{mod.technicalDetail}</p>
-          </div>
-        </div>
+      <dl class="panel-columns">
+        <dt>Impacto operativo</dt>
+        <dd>{mod.businessValue}</dd>
+        <dt class="tech-term">Arquitectura técnica</dt>
+        <dd class="tech-def">{mod.technicalDetail}</dd>
+      </dl>
 
-        <ul class="chip-list">
-          {mod.stack.map((tech) => (
-            <li class="chip">{tech}</li>
-          ))}
-        </ul>
-      </div>
-    ))}
-  </div>
-</div>
+      <ul class="chip-list">
+        {mod.stack.map((tech) => (
+          <li class="chip">{tech}</li>
+        ))}
+      </ul>
+    </article>
+  ))}
+</section>
 
 <style>
   .explorer {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-elevated);
     overflow: hidden;
   }
 
@@ -62,7 +58,7 @@ import { DESPAX_MODULES } from '../data/projects';
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     border-bottom: 1px solid var(--border);
-    background: hsla(220, 14%, 5%, 0.45);
+    background: var(--bg);
   }
 
   @media (min-width: 860px) {
@@ -72,38 +68,33 @@ import { DESPAX_MODULES } from '../data/projects';
   }
 
   .explorer-tab {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
-    padding: 1rem 1.15rem;
+    padding: 0.95rem 1.15rem;
     background: transparent;
     border: none;
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     text-align: left;
     color: var(--text-secondary);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: background-color 0.18s ease, color 0.18s ease;
     position: relative;
   }
 
   @media (min-width: 860px) {
-    .explorer-tab {
-      border-bottom: none;
-    }
-    .explorer-tab:last-child {
-      border-right: none;
-    }
+    .explorer-tab { border-bottom: none; }
+    .explorer-tab:last-child { border-right: none; }
   }
 
   .explorer-tab:hover {
-    background: hsla(40, 24%, 93%, 0.03);
     color: var(--text-primary);
+    background: var(--bg-elevated);
   }
 
   .explorer-tab.is-active {
     background: var(--bg-card);
     color: var(--text-primary);
+    font-weight: 600;
   }
 
   .explorer-tab.is-active::after {
@@ -116,95 +107,60 @@ import { DESPAX_MODULES } from '../data/projects';
     background: var(--accent);
   }
 
-  .tab-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-muted);
-  }
-
-  .explorer-tab.is-active .tab-eyebrow {
-    color: var(--accent);
-  }
-
-  .tab-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.3;
-  }
-
-  .explorer-panels {
+  .explorer-panel {
     padding: 1.5rem;
   }
 
   @media (min-width: 768px) {
-    .explorer-panels {
-      padding: 2rem;
-    }
-  }
-
-  .explorer-panel {
-    animation: fadeSlide 0.25s var(--ease-out);
-  }
-
-  @keyframes fadeSlide {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .explorer-panel { padding: 2rem; }
   }
 
   .panel-summary {
-    font-size: 1.12rem;
+    font-size: 1.08rem;
     font-weight: 500;
     color: var(--text-primary);
-    margin-bottom: 1.35rem;
-    max-width: 68ch;
+    margin-bottom: 1.5rem;
+    max-width: 66ch;
   }
 
   .panel-columns {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
+    gap: 0.5rem 2rem;
+    margin: 0 0 1.5rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
 
   @media (min-width: 768px) {
     .panel-columns {
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      grid-template-rows: auto auto;
+      grid-auto-flow: column;
     }
   }
 
-  .panel-block {
-    padding: 1.15rem 1.25rem;
-    border-radius: var(--radius-md);
-    background: hsla(220, 14%, 5%, 0.45);
-    border: 1px solid var(--border);
-  }
-
-  .panel-block--tech {
-    border-color: hsla(31, 74%, 61%, 0.2);
-  }
-
-  .panel-block h4 {
+  .panel-columns dt {
     font-family: var(--font-mono);
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--text-muted);
-    margin-bottom: 0.55rem;
   }
 
-  .panel-block--tech h4 {
+  .panel-columns dt.tech-term {
     color: var(--accent);
+    margin-top: 1rem;
   }
 
-  .panel-block p {
-    font-size: 0.93rem;
+  @media (min-width: 768px) {
+    .panel-columns dt.tech-term { margin-top: 0; }
+  }
+
+  .panel-columns dd {
+    margin: 0;
+    font-size: 0.92rem;
     color: var(--text-secondary);
     line-height: 1.6;
   }

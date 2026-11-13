@@ -14,104 +14,72 @@ const { sorbeBeauty } = PROJECTS;
     <nav class="breadcrumb" aria-label="Ruta de navegación">
       <a href={withBase('')}>← Volver al portafolio</a>
       <span>/</span>
-      <span>Proyectos</span>
-      <span>/</span>
-      <span class="current">{sorbeBeauty.name}</span>
+      <span>{sorbeBeauty.name}</span>
     </nav>
 
     <header class="case-header">
-      <div class="case-header-meta">
-        <span class="eyebrow">{sorbeBeauty.role}</span>
-        <span class="status-badge"><span class="status-dot"></span>{sorbeBeauty.status}</span>
-      </div>
-
-      <div class="title-with-icon">
+      <p class="meta-line">{sorbeBeauty.role} · {sorbeBeauty.status}</p>
+      <hgroup class="title-with-icon">
         {sorbeBeauty.iconUrl && (
           <img
             src={withBase(sorbeBeauty.iconUrl)}
             alt="Ícono de Sorbe Beauty"
-            width="52"
-            height="52"
+            width="48"
+            height="48"
             class="title-icon"
           />
         )}
         <h1>{sorbeBeauty.name}</h1>
-      </div>
-
+      </hgroup>
       <p class="case-tagline">{sorbeBeauty.tagline}</p>
 
-      <div class="case-actions">
+      <nav class="case-actions" aria-label="Enlaces de Sorbe Beauty">
         {sorbeBeauty.liveUrl && (
           <a href={sorbeBeauty.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
             Abrir sitio en vivo ↗
           </a>
         )}
-        {sorbeBeauty.repoUrl && (
-          <a href={sorbeBeauty.repoUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-            Repositorio GitHub (Privado) ↗
-          </a>
-        )}
-      </div>
+      </nav>
       <p class="repo-note">{sorbeBeauty.repoVisibilityNote}</p>
     </header>
 
     <section class="case-section grid-2 reveal">
-      <div class="info-box surface">
-        <span class="eyebrow">01 / El problema</span>
+      <article class="info-box">
         <h2>Qué necesidad resuelve</h2>
         <p>{sorbeBeauty.problem}</p>
-      </div>
-      <div class="info-box surface">
-        <span class="eyebrow">02 / La solución</span>
+      </article>
+      <article class="info-box">
         <h2>Experiencia desarrollada</h2>
         <p>{sorbeBeauty.solution}</p>
-      </div>
+      </article>
     </section>
 
     <section class="case-section reveal">
-      <div class="section-title">
-        <span class="eyebrow">03 / Funcionalidades</span>
-        <h2>Lo que ofrece la plataforma</h2>
-      </div>
-      <div class="highlights-grid">
-        {sorbeBeauty.highlights.map((item, idx) => (
-          <div class="highlight-item surface">
-            <span class="highlight-num">{String(idx + 1).padStart(2, '0')}</span>
-            <p>{item}</p>
-          </div>
+      <h2 class="section-heading">Lo que ofrece la plataforma</h2>
+      <ol class="highlights-grid">
+        {sorbeBeauty.highlights.map((item) => (
+          <li>{item}</li>
         ))}
-      </div>
+      </ol>
     </section>
 
     <section class="case-section grid-2 reveal">
-      <div class="info-box surface">
-        <span class="eyebrow">04 / Arquitectura</span>
+      <article class="info-box">
         <h2>Cómo está construido</h2>
         <ul class="arch-list">
           {sorbeBeauty.architecture.map((line) => (
             <li>{line}</li>
           ))}
         </ul>
-      </div>
-      <div class="info-box surface">
-        <span class="eyebrow">05 / Stack real</span>
+      </article>
+      <article class="info-box">
         <h2>Tecnologías utilizadas</h2>
         <ul class="chip-list">
           {sorbeBeauty.stack.map((tech) => (
             <li class="chip">{tech}</li>
           ))}
         </ul>
-      </div>
-    </section>
-
-    <section class="case-section reveal">
-      <div class="shots-pending surface">
-        <span class="eyebrow">06 / Capturas de pantalla</span>
-        <h2>Galería pendiente de capturas reales</h2>
-        <p>
-          El repositorio de Sorbe Beauty incluye el ícono oficial de la PWA, pero no almacena capturas PNG/JPG de la interfaz. Siguiendo la regla de no usar imágenes ficticias, podés explorar la interfaz real en el sitio en vivo o sumar capturas cuando lo desees.
-        </p>
-      </div>
+      </article>
     </section>
   </article>
 </BaseLayout>
@@ -121,119 +89,100 @@ const { sorbeBeauty } = PROJECTS;
 
   .breadcrumb {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     gap: 0.5rem;
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--text-muted);
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
   }
 
   .breadcrumb a { color: var(--text-secondary); }
   .breadcrumb a:hover { color: var(--accent); }
-  .breadcrumb .current { color: var(--text-primary); }
 
   .case-header {
-    padding-bottom: 2.25rem;
+    padding-bottom: 2rem;
     border-bottom: 1px solid var(--border);
   }
 
-  .case-header-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.85rem;
-    margin-bottom: 0.85rem;
-  }
-
   .title-with-icon {
+    margin-top: 0.5rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.9rem;
   }
 
   .title-icon {
-    border-radius: 12px;
+    border-radius: var(--radius-sm);
     border: 1px solid var(--border-strong);
-    background: var(--bg-card);
+    background: var(--bg-elevated);
   }
 
-  .case-header h1 { font-size: clamp(2.1rem, 4.6vw, 3.3rem); }
+  .case-header h1 { font-size: clamp(2rem, 4.4vw, 3.1rem); }
 
   .case-tagline {
-    margin-top: 0.85rem;
-    font-size: clamp(1.02rem, 1.7vw, 1.2rem);
+    margin-top: 0.75rem;
+    font-size: clamp(1rem, 1.7vw, 1.16rem);
     color: var(--text-secondary);
     max-width: 60ch;
   }
 
   .case-actions {
-    margin-top: 1.5rem;
+    margin-top: 1.35rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
 
   .repo-note {
-    margin-top: 0.75rem;
+    margin-top: 0.7rem;
     font-family: var(--font-mono);
     font-size: 0.76rem;
     color: var(--text-muted);
   }
 
-  .case-section { margin-top: 2.75rem; }
-  .section-title { margin-bottom: 1.25rem; }
-  .section-title h2 {
-    margin-top: 0.4rem;
-    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  .case-section {
+    margin-top: 2.5rem;
+    padding-top: 2.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-heading {
+    font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+    margin-bottom: 1.25rem;
   }
 
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
   @media (min-width: 768px) {
-    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-2 { grid-template-columns: 1fr 1fr; gap: 2.25rem; }
   }
 
   .info-box {
-    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .info-box h2 { font-size: 1.28rem; }
+  .info-box h2 { font-size: 1.25rem; }
   .info-box p { color: var(--text-secondary); font-size: 0.94rem; }
 
   .highlights-grid {
+    margin: 0;
+    padding-left: 1.25rem;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.9rem;
+    gap: 0.75rem 2rem;
+    color: var(--text-secondary);
+    font-size: 0.93rem;
   }
 
   @media (min-width: 720px) {
     .highlights-grid { grid-template-columns: repeat(2, 1fr); }
   }
-
-  .highlight-item {
-    padding: 1.15rem 1.25rem;
-    display: flex;
-    gap: 0.9rem;
-    align-items: flex-start;
-  }
-
-  .highlight-num {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--accent);
-    padding-top: 0.15rem;
-  }
-
-  .highlight-item p { font-size: 0.92rem; color: var(--text-secondary); }
 
   .arch-list {
     margin: 0;
@@ -244,15 +193,4 @@ const { sorbeBeauty } = PROJECTS;
     color: var(--text-secondary);
     font-size: 0.92rem;
   }
-
-  .shots-pending {
-    padding: 1.65rem;
-    border-style: dashed;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-  }
-
-  .shots-pending h2 { font-size: 1.25rem; }
-  .shots-pending p { color: var(--text-secondary); font-size: 0.94rem; max-width: 66ch; }
 </style>

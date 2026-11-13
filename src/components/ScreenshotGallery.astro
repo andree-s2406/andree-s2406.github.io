@@ -10,60 +10,55 @@ interface Props {
 const { screenshots, projectName } = Astro.props;
 ---
 
-<div class="gallery-wrap" data-gallery>
-  <div class="gallery-grid">
+<section class="gallery-wrap" data-gallery aria-label="Galería de capturas">
+  <ul class="gallery-grid">
     {screenshots.map((shot, index) => (
-      <button
-        type="button"
-        class="shot-card"
-        data-shot-index={index}
-        data-shot-src={withBase(shot.src)}
-        data-shot-title={shot.title}
-        data-shot-caption={shot.caption}
-        aria-label={`Ampliar captura: ${shot.title}`}
-      >
-        <div class="shot-frame">
+      <li>
+        <button
+          type="button"
+          class="shot-card"
+          data-shot-index={index}
+          data-shot-src={withBase(shot.src)}
+          data-shot-title={shot.title}
+          data-shot-caption={shot.caption}
+          aria-label={`Ampliar captura: ${shot.title}`}
+        >
           <img
             src={withBase(shot.src)}
             alt={`${projectName} — ${shot.title}`}
             loading="lazy"
           />
-          <span class="shot-zoom">Ampliar</span>
-        </div>
-        <div class="shot-meta">
-          <span class="shot-index">{String(index + 1).padStart(2, '0')}</span>
-          <div>
-            <strong>{shot.title}</strong>
-            <p>{shot.caption}</p>
-          </div>
-        </div>
-      </button>
+          <span class="shot-title">{shot.title}</span>
+          <span class="shot-caption">{shot.caption}</span>
+        </button>
+      </li>
     ))}
-  </div>
+  </ul>
 
   <dialog class="lightbox" id="gallery-lightbox" aria-label="Visor de capturas">
-    <div class="lightbox-inner">
-      <div class="lightbox-top">
-        <span class="lightbox-counter" id="lb-counter"></span>
-        <button type="button" class="lightbox-close" id="lb-close" aria-label="Cerrar visor">
-          Cerrar (Esc)
-        </button>
-      </div>
-      <div class="lightbox-stage">
-        <button type="button" class="lightbox-nav" id="lb-prev" aria-label="Captura anterior">←</button>
-        <img id="lb-img" src="" alt="" />
-        <button type="button" class="lightbox-nav" id="lb-next" aria-label="Siguiente captura">→</button>
-      </div>
-      <div class="lightbox-caption">
+    <header class="lightbox-top">
+      <span class="lightbox-counter" id="lb-counter"></span>
+      <button type="button" class="lightbox-close" id="lb-close" aria-label="Cerrar visor">
+        Cerrar (Esc)
+      </button>
+    </header>
+    <figure class="lightbox-stage">
+      <button type="button" class="lightbox-nav" id="lb-prev" aria-label="Captura anterior">←</button>
+      <img id="lb-img" src="" alt="" />
+      <button type="button" class="lightbox-nav" id="lb-next" aria-label="Siguiente captura">→</button>
+      <figcaption class="lightbox-caption">
         <strong id="lb-title"></strong>
-        <p id="lb-desc"></p>
-      </div>
-    </div>
+        <span id="lb-desc"></span>
+      </figcaption>
+    </figure>
   </dialog>
-</div>
+</section>
 
 <style>
   .gallery-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.25rem;
@@ -76,110 +71,64 @@ const { screenshots, projectName } = Astro.props;
   }
 
   .shot-card {
+    width: 100%;
     display: flex;
     flex-direction: column;
     text-align: left;
-    padding: 0;
-    background: var(--bg-card);
+    padding: 0 0 1rem;
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     overflow: hidden;
     color: inherit;
-    transition: transform 0.22s var(--ease-out), border-color 0.22s ease;
+    transition: border-color 0.18s ease;
   }
 
   .shot-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-strong);
+    border-color: var(--accent);
   }
 
-  .shot-frame {
-    position: relative;
+  .shot-card img {
+    width: 100%;
     aspect-ratio: 16 / 10;
-    background: var(--bg);
-    overflow: hidden;
+    object-fit: cover;
+    object-position: top;
     border-bottom: 1px solid var(--border);
   }
 
-  .shot-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    transition: transform 0.35s var(--ease-out);
-  }
-
-  .shot-card:hover .shot-frame img {
-    transform: scale(1.02);
-  }
-
-  .shot-zoom {
-    position: absolute;
-    right: 0.75rem;
-    bottom: 0.75rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    padding: 0.28rem 0.6rem;
-    border-radius: 6px;
-    background: hsla(220, 14%, 5%, 0.85);
-    color: var(--text-primary);
-    border: 1px solid var(--border-strong);
-    opacity: 0.9;
-  }
-
-  .shot-meta {
-    display: flex;
-    gap: 0.85rem;
-    padding: 1rem 1.15rem;
-  }
-
-  .shot-index {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent);
-    padding-top: 0.15rem;
-  }
-
-  .shot-meta strong {
-    display: block;
+  .shot-title {
+    padding: 0.9rem 1.1rem 0.25rem;
     font-size: 0.95rem;
-    margin-bottom: 0.25rem;
+    font-weight: 600;
     color: var(--text-primary);
   }
 
-  .shot-meta p {
+  .shot-caption {
+    padding: 0 1.1rem;
     font-size: 0.84rem;
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.45;
   }
 
-  /* Lightbox */
   .lightbox {
     width: min(1040px, 95vw);
     max-height: 92vh;
-    padding: 0;
+    padding: 1rem 1.25rem 1.25rem;
     border: 1px solid var(--border-strong);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     background: var(--bg-elevated);
     color: var(--text-primary);
   }
 
   .lightbox::backdrop {
-    background: rgba(6, 8, 11, 0.85);
-    backdrop-filter: blur(8px);
-  }
-
-  .lightbox-inner {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 1.25rem 1.25rem;
-    gap: 0.85rem;
+    background: rgba(6, 8, 11, 0.88);
   }
 
   .lightbox-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 0.85rem;
   }
 
   .lightbox-counter {
@@ -192,7 +141,7 @@ const { screenshots, projectName } = Astro.props;
     background: var(--bg-card);
     color: var(--text-primary);
     border: 1px solid var(--border-strong);
-    border-radius: 7px;
+    border-radius: var(--radius-sm);
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
     font-family: var(--font-mono);
@@ -200,30 +149,31 @@ const { screenshots, projectName } = Astro.props;
 
   .lightbox-stage {
     position: relative;
+    margin: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background: var(--bg);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    overflow: hidden;
+    gap: 0.85rem;
   }
 
   .lightbox-stage img {
     max-height: 64vh;
     width: auto;
     object-fit: contain;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
   }
 
   .lightbox-nav {
     position: absolute;
-    top: 50%;
+    top: 42%;
     transform: translateY(-50%);
-    width: 42px;
-    height: 42px;
-    border-radius: 999px;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
     border: 1px solid var(--border-strong);
-    background: hsla(220, 14%, 5%, 0.8);
+    background: var(--bg);
     color: var(--text-primary);
     font-size: 1.1rem;
   }
@@ -231,16 +181,15 @@ const { screenshots, projectName } = Astro.props;
   #lb-prev { left: 0.75rem; }
   #lb-next { right: 0.75rem; }
 
-  .lightbox-caption strong {
-    display: block;
-    font-size: 0.98rem;
-    margin-bottom: 0.2rem;
+  .lightbox-caption {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
   }
 
-  .lightbox-caption p {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-  }
+  .lightbox-caption strong { font-size: 0.98rem; }
+  .lightbox-caption span { font-size: 0.88rem; color: var(--text-secondary); }
 </style>
 
 <script>
