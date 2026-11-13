@@ -159,9 +159,9 @@ const { despax, sorbeBeauty, digiteca } = PROJECTS;
             <img
               src={withBase(digiteca.iconUrl)}
               alt="Logo de Digiteca"
-              class="project-icon"
-              width="38"
-              height="38"
+              class="project-icon project-icon--circle"
+              width="42"
+              height="42"
             />
           )}
           <hgroup>
@@ -496,11 +496,21 @@ const { despax, sorbeBeauty, digiteca } = PROJECTS;
     gap: 0.85rem;
   }
 
+  .despax-logo {
+    height: 28px;
+    width: auto;
+    margin-bottom: 0.65rem;
+  }
+
   .project-icon {
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-strong);
-    background: var(--bg);
+    background: transparent;
+    border: none;
     object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .project-icon--circle {
+    clip-path: circle(48%);
   }
 
   .project-card h3 {

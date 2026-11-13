@@ -20,8 +20,15 @@ const { despax } = PROJECTS;
     </nav>
 
     <header class="case-header">
+      {despax.iconUrl && (
+        <img
+          src={withBase(despax.iconUrl)}
+          alt="Logo de Despax"
+          height="32"
+          class="case-logo"
+        />
+      )}
       <p class="meta-line">{despax.role} · {despax.status}</p>
-      <h1>{despax.name}</h1>
       <p class="case-tagline">{despax.tagline}</p>
 
       <nav class="case-actions" aria-label="Enlaces de Despax">
@@ -103,6 +110,23 @@ const { despax } = PROJECTS;
   .case-header {
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--border);
+  }
+
+  .case-logo {
+    height: 36px;
+    width: auto;
+    margin-bottom: 0.75rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
   }
 
   .case-header h1 {

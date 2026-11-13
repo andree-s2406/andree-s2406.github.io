@@ -226,7 +226,7 @@ export const PROJECTS: Record<'despax' | 'sorbeBeauty' | 'digiteca', ProjectData
     repoVisibilityNote: 'Código fuente privado (propiedad empresarial). Podés probar el sitio en vivo.',
     liveUrl: 'https://sorbe-beauty.onrender.com/public/servicios.html',
     screenshots: [],
-    iconUrl: '/images/sorbe-beauty-icon.svg',
+    iconUrl: '/images/sorbe-beauty-logo.png',
   },
   digiteca: {
     slug: 'digiteca',
