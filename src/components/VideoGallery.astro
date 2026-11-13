@@ -1,0 +1,78 @@
+---
+import type { ProjectScreenshot } from '../data/projects';
+import { withBase } from '../utils/url';
+
+interface Props {
+  videos: ProjectScreenshot[];
+  projectName: string;
+}
+
+const { videos, projectName } = Astro.props;
+---
+
+<section class="gallery-wrap" aria-label={`Videos explicativos de ${projectName}`}>
+  <ul class="gallery-grid">
+    {videos.map((video) => (
+      <li class="video-card">
+        <video
+          src={withBase(video.src)}
+          controls
+          preload="metadata"
+          playsinline
+          aria-label={`${projectName} — ${video.title}`}
+        ></video>
+        <strong class="video-title">{video.title}</strong>
+        <p class="video-caption">{video.caption}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .gallery-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 760px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .video-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    padding-bottom: 1rem;
+  }
+
+  .video-card video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-bottom: 1px solid var(--border);
+    display: block;
+  }
+
+  .video-title {
+    padding: 0.9rem 1.1rem 0.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .video-caption {
+    padding: 0 1.1rem;
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+</style>

@@ -83,15 +83,16 @@ const { despax, sorbeBeauty, digiteca } = PROJECTS;
       </section>
 
       <figure class="despax-figure">
-        <a href={withBase('proyectos/despax/#galeria')} aria-label="Ver capturas reales de Despax">
-          <img
-            src={withBase(despax.screenshots[0].src)}
-            alt="Captura real de Despax — Analizador de Pedidos y Etiquetas"
-          />
-        </a>
+        <video
+          src={withBase(despax.screenshots[0].src)}
+          controls
+          preload="metadata"
+          playsinline
+          aria-label="Video demo de Despax — Rotulado, diagnóstico y visor en vivo"
+        ></video>
         <figcaption>
-          <span>{despax.screenshots.length} capturas reales · 7 videos explicativos en la web</span>
-          <a href={withBase('proyectos/despax/#galeria')}>Ver galería →</a>
+          <span>{despax.screenshots.length} videos explicativos en HD</span>
+          <a href={withBase('proyectos/despax/#galeria')}>Ver todos los videos →</a>
         </figcaption>
       </figure>
     </article>
@@ -433,11 +434,11 @@ const { despax, sorbeBeauty, digiteca } = PROJECTS;
     background: var(--bg-elevated);
   }
 
-  .despax-figure img {
+  .despax-figure video {
     width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    object-position: top;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    display: block;
   }
 
   .despax-figure figcaption {

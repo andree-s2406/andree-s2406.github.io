@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DespaxExplorer from '../../components/DespaxExplorer.astro';
-import ScreenshotGallery from '../../components/ScreenshotGallery.astro';
-import { PROFILE, PROJECTS, DESPAX_VIDEOS } from '../../data/projects';
+import VideoGallery from '../../components/VideoGallery.astro';
+import { PROFILE, PROJECTS } from '../../data/projects';
 import { withBase } from '../../utils/url';
 
 const { despax } = PROJECTS;
@@ -78,30 +78,9 @@ const { despax } = PROJECTS;
       </article>
     </section>
 
-    <section class="case-section reveal">
-      <header class="videos-head">
-        <hgroup>
-          <h2>Videos explicativos en la página oficial</h2>
-          <p class="videos-desc">
-            La landing oficial de Despax incluye 7 videos explicativos que muestran cada flujo operativo en funcionamiento real:
-          </p>
-        </hgroup>
-        {despax.liveUrl && (
-          <a href={despax.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-            Ver videos en Despax ↗
-          </a>
-        )}
-      </header>
-      <ul class="videos-list">
-        {DESPAX_VIDEOS.map((video) => (
-          <li>{video}</li>
-        ))}
-      </ul>
-    </section>
-
     <section class="case-section reveal" id="galeria">
-      <h2 class="section-heading">Capturas reales de la última versión ({despax.screenshots.length} pantallas)</h2>
-      <ScreenshotGallery screenshots={despax.screenshots} projectName={despax.name} />
+      <h2 class="section-heading">Videos explicativos en operación ({despax.screenshots.length} recorridos)</h2>
+      <VideoGallery videos={despax.screenshots} projectName={despax.name} />
     </section>
   </article>
 </BaseLayout>
