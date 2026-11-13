@@ -1,0 +1,701 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DespaxExplorer from '../components/DespaxExplorer.astro';
+import { PROFILE, PROJECTS, VERIFIED_STACK } from '../data/projects';
+import { withBase } from '../utils/url';
+
+const { despax, sorbeBeauty, digiteca } = PROJECTS;
+---
+
+<BaseLayout
+  title={`${PROFILE.name} — ${PROFILE.role}`}
+  description="Portafolio de desarrollo de software de Andrés Rodríguez. Despax (proyecto principal), Sorbe Beauty y Digiteca."
+>
+  <!-- HERO -->
+  <section class="hero container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">{PROFILE.role}</span>
+        <h1 class="hero-title">{PROFILE.headline}</h1>
+        <p class="hero-sub">{PROFILE.subheadline}</p>
+        <div class="hero-actions">
+          <a href={withBase('proyectos/despax/')} class="btn btn-primary">
+            Explorar Despax (Principal) →
+          </a>
+          <a href="#proyectos" class="btn btn-secondary">
+            Ver todos los proyectos
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-index surface" aria-label="Índice de proyectos">
+        <div class="index-header">
+          <span>SISTEMAS_REALES</span>
+          <span>03</span>
+        </div>
+        <a href={withBase('proyectos/despax/')} class="index-row index-row--featured">
+          <div>
+            <span class="index-tag">01 · Principal</span>
+            <strong>{despax.name}</strong>
+            <span class="index-desc">Logística e-commerce, PDFs & Stock</span>
+          </div>
+          <span class="status-badge"><span class="status-dot"></span>{despax.status}</span>
+        </a>
+        <a href={withBase('proyectos/sorbe-beauty/')} class="index-row">
+          <div>
+            <span class="index-tag">02 · Destacado</span>
+            <strong>{sorbeBeauty.name}</strong>
+            <span class="index-desc">Turnos online, PWA & Tiempo real</span>
+          </div>
+          <span class="status-badge"><span class="status-dot"></span>Activo</span>
+        </a>
+        <a href={withBase('proyectos/digiteca/')} class="index-row">
+          <div>
+            <span class="index-tag">03 · Público</span>
+            <strong>{digiteca.name}</strong>
+            <span class="index-desc">Biblioteca digital, PDF.js & Tiempo real</span>
+          </div>
+          <span class="status-badge"><span class="status-dot"></span>Activo</span>
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- DESPAX SPOTLIGHT -->
+  <section class="section container reveal" id="despax">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Proyecto principal</span>
+        <h2>Despax — Automatización de despachos y stock</h2>
+      </div>
+      <div class="section-head-actions">
+        {despax.liveUrl && (
+          <a href={despax.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            App en producción ↗
+          </a>
+        )}
+        <a href={withBase('proyectos/despax/')} class="btn btn-primary">
+          Caso de estudio completo →
+        </a>
+      </div>
+    </div>
+
+    <div class="despax-hero surface">
+      <div class="despax-hero-copy">
+        <span class="status-badge"><span class="status-dot"></span>{despax.status} · Tiendanube & Mercado Libre</span>
+        <p class="despax-lead">{despax.summary}</p>
+
+        <div class="despax-split">
+          <div>
+            <h3>El problema</h3>
+            <p>{despax.problem}</p>
+          </div>
+          <div>
+            <h3>La solución</h3>
+            <p>{despax.solution}</p>
+          </div>
+        </div>
+
+        <ul class="chip-list">
+          {despax.stack.slice(0, 8).map((tech) => (
+            <li class="chip">{tech}</li>
+          ))}
+        </ul>
+      </div>
+
+      <a href={withBase('proyectos/despax/#galeria')} class="despax-preview" aria-label="Ver capturas reales de Despax">
+        <img
+          src={withBase(despax.screenshots[0].src)}
+          alt="Captura real de Despax — Analizador de Pedidos y Etiquetas"
+        />
+        <span class="preview-caption">
+          <span>{despax.screenshots.length} capturas reales · 7 videos explicativos en la web</span>
+          <span>Ver galería →</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="despax-explorer-wrap">
+      <div class="explorer-intro">
+        <h3>Explorá cómo funciona por dentro</h3>
+        <p>Alterná entre módulos para ver tanto el impacto operativo como la arquitectura técnica.</p>
+      </div>
+      <DespaxExplorer />
+    </div>
+  </section>
+
+  <!-- OTROS PROYECTOS -->
+  <section class="section container reveal" id="proyectos">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Otros proyectos</span>
+        <h2>Sorbe Beauty & Digiteca</h2>
+      </div>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Sorbe Beauty -->
+      <article class="project-card surface">
+        <div class="project-card-top">
+          <div class="project-title-row">
+            {sorbeBeauty.iconUrl && (
+              <img
+                src={withBase(sorbeBeauty.iconUrl)}
+                alt="Ícono de Sorbe Beauty"
+                class="project-icon"
+                width="40"
+                height="40"
+              />
+            )}
+            <div>
+              <span class="eyebrow">02 / Reservas & PWA</span>
+              <h3>{sorbeBeauty.name}</h3>
+            </div>
+          </div>
+          <span class="status-badge"><span class="status-dot"></span>{sorbeBeauty.status}</span>
+        </div>
+
+        <p class="project-summary">{sorbeBeauty.summary}</p>
+
+        <ul class="project-bullets">
+          {sorbeBeauty.highlights.slice(0, 4).map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+
+        <ul class="chip-list">
+          {sorbeBeauty.stack.slice(0, 6).map((tech) => (
+            <li class="chip">{tech}</li>
+          ))}
+        </ul>
+
+        <div class="project-card-actions">
+          <a href={withBase('proyectos/sorbe-beauty/')} class="btn btn-primary">
+            Ver detalle →
+          </a>
+          {sorbeBeauty.liveUrl && (
+            <a href={sorbeBeauty.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              Sitio en vivo ↗
+            </a>
+          )}
+        </div>
+      </article>
+
+      <!-- Digiteca -->
+      <article class="project-card surface">
+        <div class="project-card-top">
+          <div class="project-title-row">
+            {digiteca.iconUrl && (
+              <img
+                src={withBase(digiteca.iconUrl)}
+                alt="Logo de Digiteca"
+                class="project-icon"
+                width="40"
+                height="40"
+              />
+            )}
+            <div>
+              <span class="eyebrow">03 / Biblioteca Digital</span>
+              <h3>{digiteca.name}</h3>
+            </div>
+          </div>
+          <span class="status-badge"><span class="status-dot"></span>{digiteca.status}</span>
+        </div>
+
+        <p class="project-summary">{digiteca.summary}</p>
+
+        <ul class="project-bullets">
+          {digiteca.highlights.slice(0, 4).map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+
+        <ul class="chip-list">
+          {digiteca.stack.slice(0, 6).map((tech) => (
+            <li class="chip">{tech}</li>
+          ))}
+        </ul>
+
+        <div class="project-card-actions">
+          <a href={withBase('proyectos/digiteca/')} class="btn btn-primary">
+            Ver detalle →
+          </a>
+          {digiteca.liveUrl && (
+            <a href={digiteca.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              Sitio en vivo ↗
+            </a>
+          )}
+          {digiteca.repoUrl && (
+            <a href={digiteca.repoUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              GitHub ↗
+            </a>
+          )}
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- STACK REAL -->
+  <section class="section container reveal" id="stack">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Herramientas verificadas</span>
+        <h2>Tecnologías que uso en producción</h2>
+      </div>
+    </div>
+
+    <div class="stack-grid">
+      {VERIFIED_STACK.map((category) => (
+        <div class="stack-card surface">
+          <h3>{category.group}</h3>
+          <ul class="chip-list">
+            {category.items.map((item) => (
+              <li class="chip">{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ & CONTACTO -->
+  <section class="section container reveal" id="sobre-mi">
+    <div class="about-contact-grid">
+      <div class="about-block surface">
+        <span class="eyebrow">Sobre mí</span>
+        <h2>Desarrollo pragmático de principio a fin</h2>
+        {PROFILE.about.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+
+      <div class="contact-block surface" id="contacto">
+        <span class="eyebrow">Contacto</span>
+        <h2>Hablemos de código o proyectos</h2>
+        <p>
+          Podés revisar mis repositorios públicos en GitHub, escribirme por correo o pedirme acceso / demo de los proyectos privados en producción.
+        </p>
+        <div class="contact-actions">
+          <a href={`mailto:${PROFILE.email}`} class="btn btn-primary">
+            Enviar email
+          </a>
+          <a href={PROFILE.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            GitHub ({PROFILE.handle}) ↗
+          </a>
+        </div>
+        <span class="contact-email">{PROFILE.email}</span>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 3.5rem 0 2.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .hero {
+      padding: 5rem 0 3.5rem;
+    }
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .hero-grid {
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 3rem;
+    }
+  }
+
+  .hero-title {
+    margin-top: 0.9rem;
+    font-size: clamp(2.1rem, 4.6vw, 3.45rem);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    max-width: 16ch;
+  }
+
+  .hero-sub {
+    margin-top: 1.15rem;
+    font-size: clamp(1rem, 1.5vw, 1.14rem);
+    color: var(--text-secondary);
+    max-width: 54ch;
+  }
+
+  .hero-actions {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero-index {
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .index-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    padding: 0.25rem 0.45rem 0.55rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .index-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.8rem 0.85rem;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .index-row:hover {
+    background: hsla(40, 24%, 93%, 0.04);
+    border-color: var(--border);
+  }
+
+  .index-row--featured {
+    background: hsla(31, 74%, 61%, 0.06);
+    border-color: hsla(31, 74%, 61%, 0.18);
+  }
+
+  .index-tag {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    margin-bottom: 0.15rem;
+  }
+
+  .index-row strong {
+    display: block;
+    font-size: 0.98rem;
+  }
+
+  .index-desc {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  /* Sections */
+  .section {
+    padding: 3.25rem 0;
+  }
+
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-head {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .section-head h2 {
+    margin-top: 0.45rem;
+    font-size: clamp(1.55rem, 2.8vw, 2.15rem);
+  }
+
+  .section-head-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  /* Despax Spotlight */
+  .despax-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding: 1.4rem;
+  }
+
+  @media (min-width: 920px) {
+    .despax-hero {
+      grid-template-columns: 1.1fr 0.95fr;
+      padding: 2rem;
+      gap: 2.25rem;
+      align-items: center;
+    }
+  }
+
+  .despax-lead {
+    margin-top: 1rem;
+    font-size: 1.02rem;
+    color: var(--text-primary);
+    line-height: 1.65;
+  }
+
+  .despax-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1.35rem 0;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (min-width: 640px) {
+    .despax-split {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+  }
+
+  .despax-split h3 {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .despax-split p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  .despax-preview {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+    background: var(--bg);
+    transition: transform 0.25s var(--ease-out), border-color 0.25s ease;
+  }
+
+  .despax-preview:hover {
+    transform: translateY(-2px);
+    border-color: hsla(31, 74%, 61%, 0.45);
+  }
+
+  .despax-preview img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .preview-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.95rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+  }
+
+  .preview-caption span:last-child {
+    color: var(--accent);
+  }
+
+  .despax-explorer-wrap {
+    margin-top: 2rem;
+  }
+
+  .explorer-intro {
+    margin-bottom: 1rem;
+  }
+
+  .explorer-intro h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .explorer-intro p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+  }
+
+  /* Other Projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+  }
+
+  @media (min-width: 820px) {
+    .projects-grid {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+  }
+
+  .project-card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+
+  @media (min-width: 768px) {
+    .project-card {
+      padding: 1.85rem;
+    }
+  }
+
+  .project-card-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.85rem;
+  }
+
+  .project-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .project-icon {
+    border-radius: 10px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg);
+  }
+
+  .project-card h3 {
+    font-size: 1.35rem;
+    margin-top: 0.2rem;
+  }
+
+  .project-summary {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .project-bullets {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+  }
+
+  .project-card-actions {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .project-card--pending {
+    border-style: dashed;
+  }
+
+  .pending-box {
+    padding: 1rem 1.1rem;
+    border-radius: var(--radius-md);
+    background: hsla(220, 14%, 5%, 0.5);
+    border: 1px solid var(--border);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  /* Stack */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .stack-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .stack-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .stack-card {
+    padding: 1.35rem;
+  }
+
+  .stack-card h3 {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    margin-bottom: 0.9rem;
+  }
+
+  /* About & Contact */
+  .about-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+  }
+
+  @media (min-width: 820px) {
+    .about-contact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .about-block,
+  .contact-block {
+    padding: 1.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .about-block h2,
+  .contact-block h2 {
+    font-size: 1.45rem;
+  }
+
+  .about-block p,
+  .contact-block p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+  }
+
+  .contact-email {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    word-break: break-all;
+  }
+</style>

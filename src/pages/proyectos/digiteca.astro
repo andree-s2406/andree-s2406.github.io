@@ -1,0 +1,238 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PROFILE, PROJECTS } from '../../data/projects';
+import { withBase } from '../../utils/url';
+
+const { digiteca } = PROJECTS;
+---
+
+<BaseLayout
+  title={`${digiteca.name} — Proyecto | ${PROFILE.name}`}
+  description={digiteca.tagline}
+>
+  <article class="case-study container">
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <a href={withBase('')}>← Volver al portafolio</a>
+      <span>/</span>
+      <span>Proyectos</span>
+      <span>/</span>
+      <span class="current">{digiteca.name}</span>
+    </nav>
+
+    <header class="case-header">
+      <div class="case-header-meta">
+        <span class="eyebrow">{digiteca.role}</span>
+        <span class="status-badge"><span class="status-dot"></span>{digiteca.status}</span>
+      </div>
+
+      <div class="title-with-icon">
+        {digiteca.iconUrl && (
+          <img
+            src={withBase(digiteca.iconUrl)}
+            alt="Logo de Digiteca"
+            width="52"
+            height="52"
+            class="title-icon"
+          />
+        )}
+        <h1>{digiteca.name}</h1>
+      </div>
+
+      <p class="case-tagline">{digiteca.tagline}</p>
+
+      <div class="case-actions">
+        {digiteca.liveUrl && (
+          <a href={digiteca.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Abrir sitio en vivo ↗
+          </a>
+        )}
+        {digiteca.repoUrl && (
+          <a href={digiteca.repoUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Ver código en GitHub ↗
+          </a>
+        )}
+      </div>
+      <p class="repo-note">{digiteca.repoVisibilityNote}</p>
+    </header>
+
+    <section class="case-section grid-2 reveal">
+      <div class="info-box surface">
+        <span class="eyebrow">01 / El problema</span>
+        <h2>Qué necesidad resuelve</h2>
+        <p>{digiteca.problem}</p>
+      </div>
+      <div class="info-box surface">
+        <span class="eyebrow">02 / La solución</span>
+        <h2>Plataforma desarrollada</h2>
+        <p>{digiteca.solution}</p>
+      </div>
+    </section>
+
+    <section class="case-section reveal">
+      <div class="section-title">
+        <span class="eyebrow">03 / Funcionalidades</span>
+        <h2>Lo que ofrece la biblioteca digital</h2>
+      </div>
+      <div class="highlights-grid">
+        {digiteca.highlights.map((item, idx) => (
+          <div class="highlight-item surface">
+            <span class="highlight-num">{String(idx + 1).padStart(2, '0')}</span>
+            <p>{item}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="case-section grid-2 reveal">
+      <div class="info-box surface">
+        <span class="eyebrow">04 / Arquitectura</span>
+        <h2>Cómo está construido</h2>
+        <ul class="arch-list">
+          {digiteca.architecture.map((line) => (
+            <li>{line}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="info-box surface">
+        <span class="eyebrow">05 / Stack real</span>
+        <h2>Tecnologías utilizadas</h2>
+        <ul class="chip-list">
+          {digiteca.stack.map((tech) => (
+            <li class="chip">{tech}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-study { padding: 2.25rem 0 3rem; }
+
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumb a { color: var(--text-secondary); }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb .current { color: var(--text-primary); }
+
+  .case-header {
+    padding-bottom: 2.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .case-header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .title-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .title-icon {
+    border-radius: 12px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-card);
+    object-fit: contain;
+  }
+
+  .case-header h1 { font-size: clamp(2.1rem, 4.6vw, 3.3rem); }
+
+  .case-tagline {
+    margin-top: 0.85rem;
+    font-size: clamp(1.02rem, 1.7vw, 1.2rem);
+    color: var(--text-secondary);
+    max-width: 60ch;
+  }
+
+  .case-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .repo-note {
+    margin-top: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+  }
+
+  .case-section { margin-top: 2.75rem; }
+  .section-title { margin-bottom: 1.25rem; }
+  .section-title h2 {
+    margin-top: 0.4rem;
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+  }
+
+  .info-box {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .info-box h2 { font-size: 1.28rem; }
+  .info-box p { color: var(--text-secondary); font-size: 0.94rem; }
+
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  @media (min-width: 720px) {
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .highlight-item {
+    padding: 1.15rem 1.25rem;
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+  }
+
+  .highlight-num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    padding-top: 0.15rem;
+  }
+
+  .highlight-item p { font-size: 0.92rem; color: var(--text-secondary); }
+
+  .arch-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+  }
+</style>

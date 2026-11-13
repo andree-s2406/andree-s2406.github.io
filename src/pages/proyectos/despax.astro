@@ -1,0 +1,350 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DespaxExplorer from '../../components/DespaxExplorer.astro';
+import ScreenshotGallery from '../../components/ScreenshotGallery.astro';
+import { PROFILE, PROJECTS, DESPAX_VIDEOS } from '../../data/projects';
+import { withBase } from '../../utils/url';
+
+const { despax } = PROJECTS;
+---
+
+<BaseLayout
+  title={`${despax.name} — Caso de estudio | ${PROFILE.name}`}
+  description={despax.tagline}
+>
+  <article class="case-study container">
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <a href={withBase('')}>← Volver al portafolio</a>
+      <span>/</span>
+      <span>Proyectos</span>
+      <span>/</span>
+      <span class="current">{despax.name}</span>
+    </nav>
+
+    <header class="case-header">
+      <div class="case-header-meta">
+        <span class="eyebrow">{despax.role}</span>
+        <span class="status-badge"><span class="status-dot"></span>{despax.status}</span>
+      </div>
+      <h1>{despax.name}</h1>
+      <p class="case-tagline">{despax.tagline}</p>
+
+      <div class="case-actions">
+        {despax.liveUrl && (
+          <a href={despax.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Abrir aplicación en producción ↗
+          </a>
+        )}
+        {despax.repoUrl && (
+          <a href={despax.repoUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Repositorio GitHub (Privado) ↗
+          </a>
+        )}
+      </div>
+      <p class="repo-note">{despax.repoVisibilityNote}</p>
+    </header>
+
+    <!-- Problema y Solución -->
+    <section class="case-section grid-2 reveal">
+      <div class="info-box surface">
+        <span class="eyebrow">01 / El problema</span>
+        <h2>Por qué hacía falta Despax</h2>
+        <p>{despax.problem}</p>
+      </div>
+      <div class="info-box surface">
+        <span class="eyebrow">02 / La solución</span>
+        <h2>Cómo lo resuelve</h2>
+        <p>{despax.solution}</p>
+      </div>
+    </section>
+
+    <!-- Funcionalidades clave -->
+    <section class="case-section reveal">
+      <div class="section-title">
+        <span class="eyebrow">03 / Capacidades</span>
+        <h2>Funcionalidades implementadas</h2>
+      </div>
+      <div class="highlights-grid">
+        {despax.highlights.map((item, idx) => (
+          <div class="highlight-item surface">
+            <span class="highlight-num">{String(idx + 1).padStart(2, '0')}</span>
+            <p>{item}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Explorador técnico interactivo -->
+    <section class="case-section reveal">
+      <div class="section-title">
+        <span class="eyebrow">04 / Arquitectura modular</span>
+        <h2>Explorador técnico e impacto operativo</h2>
+      </div>
+      <DespaxExplorer />
+    </section>
+
+    <!-- Seguridad y Stack -->
+    <section class="case-section grid-2 reveal">
+      <div class="info-box surface">
+        <span class="eyebrow">05 / Seguridad & Multi-Tenant</span>
+        <h2>Decisiones de ingeniería</h2>
+        <ul class="arch-list">
+          {despax.architecture.map((line) => (
+            <li>{line}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="info-box surface">
+        <span class="eyebrow">06 / Stack real</span>
+        <h2>Tecnologías utilizadas</h2>
+        <ul class="chip-list">
+          {despax.stack.map((tech) => (
+            <li class="chip">{tech}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Videos explicativos -->
+    <section class="case-section reveal">
+      <div class="videos-box surface">
+        <div class="videos-head">
+          <div>
+            <span class="eyebrow">07 / Videos explicativos</span>
+            <h2>Recorrido guiado en la página oficial</h2>
+            <p class="videos-desc">
+              La landing oficial de Despax incluye 7 videos explicativos que muestran cada flujo operativo en funcionamiento real:
+            </p>
+          </div>
+          {despax.liveUrl && (
+            <a href={despax.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              Ver videos en Despax ↗
+            </a>
+          )}
+        </div>
+        <ul class="videos-list">
+          {DESPAX_VIDEOS.map((video) => (
+            <li>{video}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Galería real -->
+    <section class="case-section reveal" id="galeria">
+      <div class="section-title">
+        <span class="eyebrow">08 / Capturas reales</span>
+        <h2>Interfaz en operación ({despax.screenshots.length} pantallas)</h2>
+      </div>
+      <ScreenshotGallery screenshots={despax.screenshots} projectName={despax.name} />
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-study {
+    padding: 2.25rem 0 3rem;
+  }
+
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumb a {
+    color: var(--text-secondary);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--accent);
+  }
+
+  .breadcrumb .current {
+    color: var(--text-primary);
+  }
+
+  .case-header {
+    padding-bottom: 2.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .case-header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .case-header h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    letter-spacing: -0.03em;
+  }
+
+  .case-tagline {
+    margin-top: 0.85rem;
+    font-size: clamp(1.02rem, 1.8vw, 1.24rem);
+    color: var(--text-secondary);
+    max-width: 60ch;
+  }
+
+  .case-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .repo-note {
+    margin-top: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+  }
+
+  .case-section {
+    margin-top: 3rem;
+  }
+
+  .section-title {
+    margin-bottom: 1.25rem;
+  }
+
+  .section-title h2 {
+    margin-top: 0.4rem;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .grid-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .info-box {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .info-box h2 {
+    font-size: 1.3rem;
+  }
+
+  .info-box p {
+    color: var(--text-secondary);
+    font-size: 0.94rem;
+  }
+
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  @media (min-width: 720px) {
+    .highlights-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .highlight-item {
+    padding: 1.15rem 1.25rem;
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+  }
+
+  .highlight-num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    padding-top: 0.15rem;
+  }
+
+  .highlight-item p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+  }
+
+  .arch-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+  }
+
+  .videos-box {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .videos-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .videos-head {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .videos-head h2 {
+    margin-top: 0.4rem;
+    font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+  }
+
+  .videos-desc {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.94rem;
+    max-width: 62ch;
+  }
+
+  .videos-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  @media (min-width: 720px) {
+    .videos-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .videos-list li {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius-sm);
+    background: hsla(220, 14%, 5%, 0.45);
+    border: 1px solid var(--border);
+  }
+</style>

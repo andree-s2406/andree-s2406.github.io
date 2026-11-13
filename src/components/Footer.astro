@@ -1,0 +1,77 @@
+---
+import { PROFILE } from '../data/projects';
+import { withBase } from '../utils/url';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <span class="footer-brand">{PROFILE.name}</span>
+      <span class="footer-note">Portafolio técnico independiente · {year}</span>
+    </div>
+
+    <div class="footer-links">
+      <a href={withBase('proyectos/despax/')}>Despax</a>
+      <a href={withBase('proyectos/sorbe-beauty/')}>Sorbe Beauty</a>
+      <a href={withBase('proyectos/digiteca/')}>Digiteca</a>
+      <a href={PROFILE.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href={`mailto:${PROFILE.email}`}>Email</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0;
+    margin-top: 4rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .footer-brand {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .footer-note {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+  }
+
+  .footer-links a {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    transition: color 0.18s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--accent);
+  }
+
+  @media (min-width: 768px) {
+    .footer-inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

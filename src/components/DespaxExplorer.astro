@@ -1,0 +1,234 @@
+---
+import { DESPAX_MODULES } from '../data/projects';
+---
+
+<div class="explorer surface" data-despax-explorer>
+  <div class="explorer-tabs" role="tablist" aria-label="Módulos técnicos de Despax">
+    {DESPAX_MODULES.map((mod, idx) => (
+      <button
+        type="button"
+        role="tab"
+        class:list={['explorer-tab', { 'is-active': idx === 0 }]}
+        id={`tab-${mod.id}`}
+        aria-selected={idx === 0 ? 'true' : 'false'}
+        aria-controls={`panel-${mod.id}`}
+        data-tab-target={mod.id}
+      >
+        <span class="tab-eyebrow">{mod.eyebrow}</span>
+        <span class="tab-label">{mod.label}</span>
+      </button>
+    ))}
+  </div>
+
+  <div class="explorer-panels">
+    {DESPAX_MODULES.map((mod, idx) => (
+      <div
+        role="tabpanel"
+        id={`panel-${mod.id}`}
+        aria-labelledby={`tab-${mod.id}`}
+        class:list={['explorer-panel', { 'is-active': idx === 0 }]}
+        hidden={idx !== 0}
+        data-tab-panel={mod.id}
+      >
+        <p class="panel-summary">{mod.summary}</p>
+
+        <div class="panel-columns">
+          <div class="panel-block">
+            <h4>Valor operativo</h4>
+            <p>{mod.businessValue}</p>
+          </div>
+          <div class="panel-block panel-block--tech">
+            <h4>Cómo está construido</h4>
+            <p>{mod.technicalDetail}</p>
+          </div>
+        </div>
+
+        <ul class="chip-list">
+          {mod.stack.map((tech) => (
+            <li class="chip">{tech}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .explorer {
+    overflow: hidden;
+  }
+
+  .explorer-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-bottom: 1px solid var(--border);
+    background: hsla(220, 14%, 5%, 0.45);
+  }
+
+  @media (min-width: 860px) {
+    .explorer-tabs {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .explorer-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 1rem 1.15rem;
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    color: var(--text-secondary);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    position: relative;
+  }
+
+  @media (min-width: 860px) {
+    .explorer-tab {
+      border-bottom: none;
+    }
+    .explorer-tab:last-child {
+      border-right: none;
+    }
+  }
+
+  .explorer-tab:hover {
+    background: hsla(40, 24%, 93%, 0.03);
+    color: var(--text-primary);
+  }
+
+  .explorer-tab.is-active {
+    background: var(--bg-card);
+    color: var(--text-primary);
+  }
+
+  .explorer-tab.is-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .tab-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .explorer-tab.is-active .tab-eyebrow {
+    color: var(--accent);
+  }
+
+  .tab-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .explorer-panels {
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .explorer-panels {
+      padding: 2rem;
+    }
+  }
+
+  .explorer-panel {
+    animation: fadeSlide 0.25s var(--ease-out);
+  }
+
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .panel-summary {
+    font-size: 1.12rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 1.35rem;
+    max-width: 68ch;
+  }
+
+  .panel-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .panel-columns {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .panel-block {
+    padding: 1.15rem 1.25rem;
+    border-radius: var(--radius-md);
+    background: hsla(220, 14%, 5%, 0.45);
+    border: 1px solid var(--border);
+  }
+
+  .panel-block--tech {
+    border-color: hsla(31, 74%, 61%, 0.2);
+  }
+
+  .panel-block h4 {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 0.55rem;
+  }
+
+  .panel-block--tech h4 {
+    color: var(--accent);
+  }
+
+  .panel-block p {
+    font-size: 0.93rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-despax-explorer]').forEach((root) => {
+    const tabs = root.querySelectorAll<HTMLButtonElement>('[data-tab-target]');
+    const panels = root.querySelectorAll<HTMLElement>('[data-tab-panel]');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tabTarget;
+        tabs.forEach((t) => {
+          const active = t === tab;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-selected', String(active));
+        });
+        panels.forEach((p) => {
+          const active = p.dataset.tabPanel === target;
+          p.classList.toggle('is-active', active);
+          p.hidden = !active;
+        });
+      });
+    });
+  });
+</script>
