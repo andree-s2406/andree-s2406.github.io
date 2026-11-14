@@ -38,7 +38,7 @@ export const PROFILE = {
   name: 'Andrés Rodríguez',
   handle: '@andree-s2406',
   role: 'Desarrollador Backend · Sistemas en Producción',
-  headline: 'Desarrollo backends y sistemas que resuelven operaciones reales.',
+  headline: 'Desarrollo backends y automatizaciones para operaciones reales.',
   subheadline:
     'Me especializo en arquitectura backend, APIs, colas asíncronas, bases de datos y seguridad, completando el ciclo full-stack cuando el producto lo requiere.',
   about: [
