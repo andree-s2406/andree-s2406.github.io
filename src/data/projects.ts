@@ -274,7 +274,13 @@ export const PROJECTS: Record<'despax' | 'sorbeBeauty' | 'digiteca', ProjectData
     repoUrl: 'https://github.com/andree-s2406/digiteca',
     repoVisibilityNote: 'Repositorio público en GitHub.',
     liveUrl: 'https://digiteca-nueva.onrender.com',
-    screenshots: [],
+    screenshots: [
+      {
+        src: '/videos/digiteca/demo_digiteca.mp4',
+        title: 'Recorrido completo — Digiteca',
+        caption: 'Catálogo bibliográfico, visor seguro PDF.js en memoria, control por roles y sincronización en tiempo real.',
+      },
+    ],
     iconUrl: '/images/digiteca-logo.png',
   },
 };
