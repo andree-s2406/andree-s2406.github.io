@@ -226,7 +226,20 @@ const { despax, sorbeBeauty, digiteca } = PROJECTS;
   <!-- SOBRE MÍ & CONTACTO -->
   <section class="section container reveal about-contact-grid" id="sobre-mi">
     <article class="about-block">
-      <h2>Sobre mí</h2>
+      <header class="about-header">
+        <img
+          src={withBase(PROFILE.avatarUrl)}
+          alt={PROFILE.name}
+          class="about-avatar"
+          width="76"
+          height="76"
+          loading="lazy"
+        />
+        <hgroup>
+          <h2>Sobre mí</h2>
+          <p class="meta-line">{PROFILE.name} · {PROFILE.handle}</p>
+        </hgroup>
+      </header>
       {PROFILE.about.map((paragraph) => (
         <p>{paragraph}</p>
       ))}
@@ -593,6 +606,21 @@ const { despax, sorbeBeauty, digiteca } = PROJECTS;
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
+  }
+
+  .about-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .about-avatar {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    border: 1px solid var(--border-strong);
+    flex-shrink: 0;
   }
 
   .about-block h2,

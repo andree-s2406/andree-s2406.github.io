@@ -47,6 +47,7 @@ export const PROFILE = {
   ],
   githubUrl: 'https://github.com/andree-s2406',
   email: 'andresfeliperodriguezmora448@gmail.com',
+  avatarUrl: '/images/perfil.png',
 };
 
 export const DESPAX_MODULES: ProjectModule[] = [
