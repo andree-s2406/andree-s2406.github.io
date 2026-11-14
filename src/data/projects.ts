@@ -185,6 +185,7 @@ export const PROJECTS: Record<'despax' | 'sorbeBeauty' | 'digiteca', ProjectData
         caption: 'Integración directa dentro de los portales de Tiendanube y correos argentinos.',
       },
     ],
+    iconUrl: '/images/despax-logo.svg',
   },
   sorbeBeauty: {
     slug: 'sorbe-beauty',

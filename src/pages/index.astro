@@ -51,6 +51,14 @@ const { despax, sorbeBeauty, digiteca } = PROJECTS;
   <section class="section container reveal" id="despax">
     <header class="section-head">
       <hgroup>
+        {despax.iconUrl && (
+          <img
+            src={withBase(despax.iconUrl)}
+            alt="Logo de Despax"
+            height="32"
+            class="despax-logo"
+          />
+        )}
         <p class="meta-line">Proyecto principal · {despax.status}</p>
         <h2>Despax — Automatización de despachos y stock</h2>
       </hgroup>
@@ -381,6 +389,13 @@ const { despax, sorbeBeauty, digiteca } = PROJECTS;
   .section-head h2 {
     margin-top: 0.35rem;
     font-size: clamp(1.5rem, 2.7vw, 2.05rem);
+  }
+
+  .despax-logo {
+    height: 32px;
+    width: auto;
+    display: block;
+    margin-bottom: 0.75rem;
   }
 
   .section-head-actions {
